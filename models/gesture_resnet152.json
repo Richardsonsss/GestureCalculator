@@ -1,0 +1,58 @@
+{
+  "model": "HaGRIDv2 ResNet-152 full-frame classifier",
+  "arch": "resnet152",
+  "published_f1": 98.6,
+  "source": "https://rndml-team-cv.obs.ru-moscow-1.hc.sbercloud.ru/datasets/hagrid_v2/models/ResNet152.pth",
+  "labels": [
+    "grabbing",
+    "grip",
+    "holy",
+    "point",
+    "call",
+    "three3",
+    "timeout",
+    "xsign",
+    "hand_heart",
+    "hand_heart2",
+    "little_finger",
+    "middle_finger",
+    "take_picture",
+    "dislike",
+    "fist",
+    "four",
+    "like",
+    "mute",
+    "ok",
+    "one",
+    "palm",
+    "peace",
+    "peace_inverted",
+    "rock",
+    "stop",
+    "stop_inverted",
+    "three",
+    "three2",
+    "two_up",
+    "two_up_inverted",
+    "three_gun",
+    "thumb_index",
+    "thumb_index2",
+    "no_gesture"
+  ],
+  "preprocess": {
+    "size": 224,
+    "mean": [
+      0.54,
+      0.499,
+      0.474
+    ],
+    "std": [
+      0.234,
+      0.235,
+      0.231
+    ],
+    "pad_value": 144,
+    "color": "RGB"
+  },
+  "onnx_max_abs_difference": 9.5367431640625e-07
+}

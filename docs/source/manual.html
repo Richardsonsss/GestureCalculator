@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gesture Calculator - User Manual</title>
+</head>
+<body>
+
+<p class="cover-title">Gesture Calculator</p>
+<p class="cover-sub">User Manual: how to use it and how it works</p>
+<p class="cover-meta">A scientific calculator operated with hand gestures in front of a webcam</p>
+<p class="cover-meta">Windows · runs entirely offline</p>
+
+<br style="page-break-before:always" clear="all">
+<p><b>Contents</b></p>
+<p>[[TOC]]</p>
+
+<br style="page-break-before:always" clear="all">
+
+<h1>1 Overview</h1>
+<p>Gesture Calculator is a scientific calculator with no keys to press. The <b>left hand</b> shows the digits. The <b>right hand</b>, held on a whiteboard in the camera picture, shows two digits that together select an operator or a function.</p>
+<p>[[IMG:overview.png]]</p>
+<p class="caption">Figure 1  The idea in one picture</p>
+<table>
+  <tr><th style="width:26%">Hand</th><th style="width:37%">What it shows</th><th style="width:37%">What is entered</th></tr>
+  <tr><td>Left hand</td><td>one gesture, held still for 1 second</td><td>a digit, <code>.</code>, <code>=</code>, DEL or AC</td></tr>
+  <tr><td>Right hand, on the whiteboard</td><td>two digit gestures, 0.5 second each, tens first</td><td>the operator with that two-digit code</td></tr>
+</table>
+<p class="note">The program never uses the internet. Camera pictures are processed on this computer and are not stored.</p>
+
+<h1>2 Getting started</h1>
+<h2>2.1 What you need</h2>
+<table>
+  <tr><th style="width:28%">Item</th><th style="width:72%">Requirement</th></tr>
+  <tr><td>Computer</td><td>Windows 10 or 11, 64-bit</td></tr>
+  <tr><td>Camera</td><td>any webcam (the built-in one of a laptop is fine)</td></tr>
+  <tr><td>Files</td><td><code>GestureCalculator.exe</code>, the folder <code>_internal</code> and the folder <code>models</code>, kept together</td></tr>
+  <tr><td>Installation</td><td>none: no Python, no internet connection</td></tr>
+</table>
+<h2>2.2 Start</h2>
+<ol>
+  <li>Double-click <code>GestureCalculator.exe</code>.</li>
+  <li>Wait a few seconds until the camera picture appears.</li>
+  <li>Sit 40–80 cm from the camera, in good light, with both hands able to reach into the picture.</li>
+</ol>
+<h2>2.3 The window</h2>
+<p>[[IMG:window.png|74]]</p>
+<p class="caption">Figure 2  The window (the numbers refer to the table below)</p>
+<table>
+  <tr><th style="width:8%">No.</th><th style="width:30%">Part</th><th style="width:62%">What it does</th></tr>
+  <tr><td>1</td><td>Display</td><td>expression on the first line, result on the right; <code>DEG</code> / <code>RAD</code> / <code>GRA</code> and <code>M</code> (memory in use) at the top left</td></tr>
+  <tr><td>2</td><td>Left hand</td><td>green outline; the ring fills while the gesture is held, the guessed key is shown above it</td></tr>
+  <tr><td>3</td><td>Whiteboard</td><td>two halves: tens digit on the left, units digit on the right; the right hand has an orange outline</td></tr>
+  <tr><td>4</td><td>Hints</td><td>what each hand should do next</td></tr>
+  <tr><td>5</td><td>Last entry</td><td>what was just entered, or why a gesture was not accepted</td></tr>
+  <tr><td>6</td><td>Settings</td><td>Pause, Swap hands, Gesture input (section 6)</td></tr>
+  <tr><td>7</td><td>Gesture list</td><td>the gestures of the left hand</td></tr>
+  <tr><td>8</td><td>Code list</td><td>the two-digit code of every operator</td></tr>
+</table>
+
+<h1>3 Left hand: digits and editing</h1>
+<p>The left hand enters the digits, the decimal point, <code>=</code>, DEL and AC. Hold a gesture still for <b>1 second</b>. A green ring fills around the hand; when it is full, the key is entered.</p>
+<p>[[IMG:gestures.png]]</p>
+<p class="caption">Figure 3  The fourteen gestures of the left hand</p>
+<table>
+  <tr><th style="width:38%">To do this</th><th style="width:62%">Do this</th></tr>
+  <tr><td>Enter the next character</td><td>change to the next gesture and hold it</td></tr>
+  <tr><td>Enter the same character twice (<code>55</code>)</td><td>after the first one, move the hand aside and back, then hold the gesture again</td></tr>
+  <tr><td>Delete the last character</td><td>thumb down (DEL)</td></tr>
+  <tr><td>Clear everything</td><td>cross both forearms, away from the whiteboard (AC)</td></tr>
+  <tr><td>Work out the result</td><td>thumb up (<code>=</code>)</td></tr>
+</table>
+<p class="note">A held gesture is entered only once. A hand shape shown only in passing, on the way to the next gesture, is ignored.</p>
+
+<h1>4 Right hand: operators</h1>
+<h2>4.1 Entering a code</h2>
+<p>The whiteboard is the light panel in the top right of the camera picture. Put the right hand on it and show <b>two digits</b>, each for <b>0.5 second</b>: first the tens digit, then the units digit. The digit gestures are the same as for the left hand; an orange ring shows the time running.</p>
+<p>[[IMG:whiteboard.png]]</p>
+<p class="caption">Figure 4  Code 10 enters sin</p>
+<ul>
+  <li>The right hand counts only while its palm is on the whiteboard, and it can only enter code digits.</li>
+  <li>A code that does not exist enters nothing.</li>
+</ul>
+<table>
+  <tr><th style="width:38%">To correct this</th><th style="width:62%">Do this</th></tr>
+  <tr><td>A wrong tens digit</td><td>take the hand off the whiteboard; after 6 seconds the digit is dropped</td></tr>
+  <tr><td>A wrong operator</td><td>delete it with the left hand (thumb down, DEL)</td></tr>
+</table>
+<h2>4.2 The codes</h2>
+<table>
+  <tr><th style="width:18%">0x  Basic</th><th style="width:20%">1x  Trigonometry</th><th style="width:20%">2x  Logs, powers</th><th style="width:22%">3x  Constants, other</th><th style="width:20%">4x  Settings</th></tr>
+  <tr><td><b>01</b>  +</td><td><b>10</b>  sin</td><td><b>20</b>  log</td><td><b>30</b>  π</td><td><b>40</b>  angle unit</td></tr>
+  <tr><td><b>02</b>  −</td><td><b>12</b>  cos</td><td><b>21</b>  ln</td><td><b>31</b>  e</td><td><b>41</b>  decimal ⇔ fraction</td></tr>
+  <tr><td><b>03</b>  ×</td><td><b>13</b>  tan</td><td><b>23</b>  10ˣ</td><td><b>32</b>  Ans</td><td></td></tr>
+  <tr><td><b>04</b>  ÷</td><td><b>14</b>  sin⁻¹</td><td><b>24</b>  eˣ</td><td><b>34</b>  Abs</td><td></td></tr>
+  <tr><td><b>05</b>  (</td><td><b>15</b>  cos⁻¹</td><td><b>25</b>  x²</td><td><b>35</b>  nPr</td><td></td></tr>
+  <tr><td><b>06</b>  )</td><td><b>16</b>  tan⁻¹</td><td><b>26</b>  x³</td><td><b>36</b>  nCr</td><td></td></tr>
+  <tr><td><b>07</b>  ^</td><td><b>17</b>  sinh</td><td><b>27</b>  x⁻¹</td><td><b>37</b>  ×10ˣ</td><td></td></tr>
+  <tr><td><b>08</b>  √</td><td><b>18</b>  cosh</td><td><b>28</b>  ∛</td><td><b>38</b>  save to memory</td><td></td></tr>
+  <tr><td><b>09</b>  %</td><td><b>19</b>  tanh</td><td><b>29</b>  x!</td><td><b>39</b>  recall memory</td><td></td></tr>
+</table>
+<p>The tens digit names the group. There are no codes with the same digit twice (11, 22, 33), so the hand never has to show one gesture twice in a row. The same list is printed in the window.</p>
+
+<h1>5 Timing and a worked example</h1>
+<p>The pause starts when the hand is still and its shape no longer changes. Moving the hand or changing the gesture starts it again.</p>
+<p>[[IMG:timing.png]]</p>
+<p class="caption">Figure 5  The left hand needs 1 second per character, the right hand 0.5 second per digit</p>
+<p>In the example below, orange steps are made by the right hand (a code), green steps by the left hand.</p>
+<p>[[IMG:example.png]]</p>
+<p class="caption">Figure 6  Entering sin(30)+5 in seven steps</p>
+
+<h1>6 Settings and keyboard</h1>
+<table>
+  <tr><th style="width:24%">Setting</th><th style="width:76%">Effect</th></tr>
+  <tr><td>Pause</td><td>how long the left hand must be still (1.0 s at the start, 0.4–2.0 s); the right hand always needs half of it</td></tr>
+  <tr><td>Swap hands</td><td>for left-handed use: digits with the right hand, operator codes with the left hand</td></tr>
+  <tr><td>Gesture input</td><td>untick to pause gesture input; the camera picture keeps running</td></tr>
+</table>
+<br style="page-break-before:always" clear="all">
+<p>The keyboard always works as well:</p>
+<table>
+  <tr><th style="width:40%">Keys</th><th style="width:60%">Enter</th></tr>
+  <tr><td><code>0</code>–<code>9</code>  <code>.</code>  <code>+ - * / ( ) ^ ! %</code></td><td>the same characters</td></tr>
+  <tr><td>Enter or <code>=</code></td><td>the result</td></tr>
+  <tr><td>Backspace / Esc</td><td>DEL / AC</td></tr>
+  <tr><td><code>D</code> / <code>F</code></td><td>angle unit / decimal ⇔ fraction</td></tr>
+</table>
+
+<h1>7 Calculator functions</h1>
+<table>
+  <tr><th style="width:26%">Group</th><th style="width:74%">Functions</th></tr>
+  <tr><td>Arithmetic</td><td>+  −  ×  ÷, parentheses, %, ×10ˣ</td></tr>
+  <tr><td>Powers and roots</td><td>x², x³, xʸ (<code>^</code>), x⁻¹, √, ∛</td></tr>
+  <tr><td>Trigonometry</td><td>sin, cos, tan, their inverses, sinh, cosh, tanh; angles in DEG, RAD or GRA</td></tr>
+  <tr><td>Logarithms</td><td>log, ln, 10ˣ, eˣ</td></tr>
+  <tr><td>Counting</td><td>x!, nPr, nCr, Abs</td></tr>
+  <tr><td>Constants, memory</td><td>π, e, Ans (the last result), one memory (save, recall)</td></tr>
+</table>
+<table>
+  <tr><th style="width:38%">Rule</th><th style="width:62%">Example</th></tr>
+  <tr><td>A missing × is understood</td><td><code>2π</code>, <code>3sin(30)</code></td></tr>
+  <tr><td>A missing <code>)</code> at the end is allowed</td><td><code>sin(30</code> gives 0.5</td></tr>
+  <tr><td>After <code>=</code>, an operator continues from the result</td><td><code>6×7=</code> then <code>+8</code> shows <code>Ans+8</code></td></tr>
+  <tr><td>After <code>=</code>, a digit starts a new calculation</td><td><code>6×7=</code> then <code>3</code> shows <code>3</code></td></tr>
+  <tr><td>Results have 10 significant digits</td><td><code>1÷3</code> gives 0.3333333333</td></tr>
+  <tr><td>What cannot be worked out</td><td><code>Math ERROR</code> (such as 1÷0) or <code>Syntax ERROR</code> (such as <code>1+</code>); DEL returns to the expression</td></tr>
+</table>
+
+<h1>8 How it works</h1>
+<h2>8.1 From the camera picture to a key</h2>
+<p>[[IMG:pipeline.png]]</p>
+<p class="caption">Figure 7  What happens to every camera frame</p>
+<table>
+  <tr><th style="width:26%">Step</th><th style="width:74%">What it does</th></tr>
+  <tr><td>Hand tracking</td><td>MediaPipe finds up to two hands, 21 points on each, and tells the left hand from the right. The picture is mirrored, so the right hand appears on the right.</td></tr>
+  <tr><td>Stillness</td><td>A hand is still while its palm and index fingertip stay inside a small circle. This tolerates the slight tremor of a raised hand.</td></tr>
+  <tr><td>One hand per look</td><td>The gesture network judges the whole picture and names one gesture. So each hand gets its own look, with the other hand painted over in grey.</td></tr>
+  <tr><td>Gesture network</td><td>ResNet-152, a deep convolutional network pre-trained on the HaGRID gesture data set, gives a probability to each of 34 gestures.</td></tr>
+  <tr><td>Averaging</td><td>The answers for all frames of the pause are averaged, so one bad frame does not decide.</td></tr>
+  <tr><td>Calculator</td><td>The key is added to the expression; <code>=</code> works it out.</td></tr>
+</table>
+<h2>8.2 When a gesture is entered</h2>
+<p>[[IMG:decision.png]]</p>
+<p class="caption">Figure 8  The decision for each hand</p>
+<p>"Network sure" means: the calculator's gestures together receive at least 30% of the probability, and the best one at least half of that. Otherwise nothing is entered and the window shows the closest guess.</p>
+<h2>8.3 The models</h2>
+<table>
+  <tr><th style="width:32%">File in the models folder</th><th style="width:68%">Role</th></tr>
+  <tr><td><code>hand_landmarker.task</code></td><td>MediaPipe hand tracker: where the hands are and which one is the left</td></tr>
+  <tr><td><code>gesture_resnet152.onnx</code></td><td>ResNet-152 gesture network (used by default)</td></tr>
+  <tr><td><code>gesture_vit_b16.onnx</code></td><td>ViT-B/16, a vision transformer trained on the same data; an optional alternative</td></tr>
+</table>
+<p>Both gesture networks are the published HaGRID models, converted to the ONNX format. Nothing is trained on this computer. They run on the processor with ONNX Runtime; no graphics card is needed.</p>
+
+<h1>9 Files</h1>
+<p>[[IMG:files.png]]</p>
+<p class="caption">Figure 9  The files of the program</p>
+<p>To use the calculator on another computer, copy <code>GestureCalculator.exe</code>, <code>_internal</code> and <code>models</code> together. The program writes no files: nothing is recorded or stored.</p>
+<h2>9.1 Running from the source code</h2>
+<p>The source code does not contain the gesture network (it is too large). Step 2 creates it once: the script downloads the published HaGRID model and converts it. This step needs the internet; running the calculator does not.</p>
+<pre># 1. environment
+py -3.12 -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+
+# 2. the gesture network, once
+.venv\Scripts\python -m pip install -r tools\requirements-convert.txt
+.venv\Scripts\python tools\convert_hagrid.py --arch resnet152
+
+# 3. start
+.venv\Scripts\python app\main.py</pre>
+<table>
+  <tr><th style="width:40%">Option</th><th style="width:60%">Effect</th></tr>
+  <tr><td><code>--camera 1</code></td><td>use another webcam</td></tr>
+  <tr><td><code>--no-camera</code></td><td>keyboard only</td></tr>
+  <tr><td><code>--gesture-model vit_b16</code></td><td>use the ViT-B/16 network instead of ResNet-152 (convert it first with <code>--arch vit_b16</code>)</td></tr>
+</table>
+<h2>9.2 Building the exe</h2>
+<pre>.venv\Scripts\python -m pip install pyinstaller
+pwsh build_exe.ps1</pre>
+<p>The script writes <code>GestureCalculator.exe</code> and <code>_internal</code> into the project folder.</p>
+
+<h1>10 Troubleshooting</h1>
+<table>
+  <tr><th style="width:36%">Problem</th><th style="width:64%">What to do</th></tr>
+  <tr><td>"No webcam found"</td><td>connect a camera, close other programs that use it, start again; or start with <code>--camera 1</code></td></tr>
+  <tr><td>"gesture model missing"</td><td>put <code>gesture_resnet152.onnx</code> and <code>gesture_resnet152.json</code> into <code>models</code></td></tr>
+  <tr><td>No outline on a hand</td><td>bring the whole hand into the picture; improve the light</td></tr>
+  <tr><td>The ring never fills</td><td>hold the hand still; rest the elbow on the table</td></tr>
+  <tr><td>"Gesture not recognised"</td><td>face the palm to the camera, spread the fingers clearly, keep the other hand away from it</td></tr>
+  <tr><td>A digit is entered twice</td><td>keep the hand still after an entry until you change the gesture</td></tr>
+  <tr><td>The right hand enters nothing</td><td>its palm must be on the whiteboard</td></tr>
+  <tr><td>The hands are taken for each other</td><td>keep them apart; if it is always wrong, tick Swap hands</td></tr>
+  <tr><td>"There is no operator with the code …"</td><td>check the code list; enter the tens digit first</td></tr>
+  <tr><td>Entries are too slow or too hasty</td><td>change Pause</td></tr>
+</table>
+
+</body>
+</html>
