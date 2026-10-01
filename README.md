@@ -4,59 +4,88 @@ A scientific calculator you operate with hand gestures in front of a webcam. It 
 **entirely offline**: the neural network is stored on the computer, no picture leaves it, and the program writes
 no files.
 
-- **Left hand: digits.** A static gesture held still for 1 second enters a digit, `.`, `=`, DEL or AC.
-- **Right hand: operators.** On a whiteboard in the top right of the camera picture, the right hand shows **two
-  digits**, tens first. The two digits are the code of an operator or function (`10` = sin, `01` = +).
-- The right hand answers **faster** than the left: 0.5 second per digit.
-- All gestures are recognised by a pre-trained **ResNet-152** (HaGRIDv2); the pre-trained **ViT-B/16** of the same
-  authors can be used instead.
-- The keyboard works as well.
-- Open source, for non-commercial use ([licence](LICENSE.md)).
+![Overview](docs/images/overview.png)
 
-The illustrated user manual is [manual.docx](manual.docx).
+| Hand | What it shows | What is entered |
+|---|---|---|
+| **Left hand** | one gesture, held still for 1 second | a digit, `.`, `=`, DEL or AC |
+| **Right hand**, on the whiteboard | two digit gestures, 0.5 second each, tens first | the operator with that two-digit code |
+
+All gestures are recognised by a pre-trained **ResNet-152** (HaGRIDv2). The keyboard works as well. Open source,
+for non-commercial use ([licence](LICENSE.md)). A printable version of this guide is [manual.docx](manual.docx).
+
+**Contents:** [Get it](#get-it) · [The window](#the-window) · [Left hand](#left-hand-digits-and-editing) ·
+[Right hand](#right-hand-operators) · [Timing and example](#timing-and-a-worked-example) ·
+[Settings and keyboard](#settings-and-keyboard) · [Calculator functions](#calculator-functions) ·
+[How it works](#how-it-works) · [Files and source code](#files-and-source-code) ·
+[Troubleshooting](#troubleshooting) · [Limitations](#limitations) · [Licence](#licence-and-credits)
 
 ## Get it
 
 Download `GestureCalculator-windows.zip` from [Releases](../../releases), unzip it and double-click
-`GestureCalculator.exe`. It needs Windows 10/11 and a webcam - no Python, no installation, no internet
-connection. Keep `GestureCalculator.exe`, `_internal\` and `models\` together.
+`GestureCalculator.exe`.
 
-To run it from the source code instead, see [Run from the source code](#run-from-the-source-code).
-
-## How to enter a calculation
-
-| You do | Result |
+| Item | Requirement |
 |---|---|
-| Left hand: hold a gesture still for 1 s | a digit, `.`, `=`, DEL or AC |
-| Left hand: change to another gesture and hold it | the next character |
-| Left hand: move the hand aside and back, then hold the same gesture | the same character again (for `55`) |
-| Right hand on the whiteboard: hold a digit gesture for 0.5 s | the tens digit of the code; it appears in the left half of the board |
-| Right hand: change to the next digit gesture, hold 0.5 s | the units digit, in the right half; the operator with that code is entered and its name is shown |
+| Computer | Windows 10 or 11, 64-bit |
+| Camera | any webcam (the built-in one of a laptop is fine) |
+| Installation | none: no Python, no internet connection |
 
-Rules for the right hand:
+Then wait a few seconds until the camera picture appears, and sit 40–80 cm from the camera, in good light, with
+both hands able to reach into the picture.
 
-- It counts only while its palm is on the whiteboard, and it can only enter code digits.
-- A tens digit that is not followed by a units digit within 6 seconds is dropped. To cancel a wrong tens digit,
-  take the hand off the board and wait.
-- A code that does not exist enters nothing. A wrong operator is removed with DEL (left hand, thumb down).
+## The window
 
-Left-handed? Tick **Swap hands**.
+![The window](docs/images/window.png)
 
-**Left hand - gestures** (the right hand uses the same ten digit gestures)
+| No. | Part | What it does |
+|---|---|---|
+| 1 | Display | expression on the first line, result on the right; `DEG` / `RAD` / `GRA` and `M` (memory in use) at the top left |
+| 2 | Left hand | green outline; the ring fills while the gesture is held, the guessed key is shown above it |
+| 3 | Whiteboard | two halves: tens digit on the left, units digit on the right; the right hand has an orange outline |
+| 4 | Hints | what each hand should do next |
+| 5 | Last entry | what was just entered, or why a gesture was not accepted |
+| 6 | Settings | Pause, Swap hands, Gesture input |
+| 7 | Gesture list | the gestures of the left hand |
+| 8 | Code list | the two-digit code of every operator |
 
-| Enters | Gesture | Enters | Gesture |
-|---|---|---|---|
-| 0 | fist | 7 | thumb + index + middle |
-| 1 | index finger up | 8 | thumb + index (L shape) |
-| 2 | index + middle (V) | 9 | OK sign |
-| 3 | index + middle + ring | . | little finger up |
-| 4 | four fingers, thumb folded | = | thumb up |
-| 5 | open palm | DEL | thumb down |
-| 6 | thumb + little finger | AC | both forearms crossed (X), away from the whiteboard |
+## Left hand: digits and editing
 
-**Right hand - operator codes** (tens digit first)
+The left hand enters the digits, the decimal point, `=`, DEL and AC. Hold a gesture still for **1 second**. A
+green ring fills around the hand; when it is full, the key is entered.
 
-| Basic | Trigonometry | Logs and powers | Constants, other | Settings |
+![The gestures of the left hand](docs/images/gestures.png)
+
+| To do this | Do this |
+|---|---|
+| Enter the next character | change to the next gesture and hold it |
+| Enter the same character twice (`55`) | after the first one, move the hand aside and back, then hold the gesture again |
+| Delete the last character | thumb down (DEL) |
+| Clear everything | cross both forearms, away from the whiteboard (AC) |
+| Work out the result | thumb up (`=`) |
+
+A held gesture is entered only once. A hand shape shown only in passing, on the way to the next gesture, is
+ignored.
+
+## Right hand: operators
+
+The whiteboard is the light panel in the top right of the camera picture. Put the right hand on it and show
+**two digits**, each for **0.5 second**: first the tens digit, then the units digit. The digit gestures are the
+same as for the left hand; an orange ring shows the time running.
+
+![Entering a code on the whiteboard](docs/images/whiteboard.png)
+
+- The right hand counts only while its palm is on the whiteboard, and it can only enter code digits.
+- A code that does not exist enters nothing.
+
+| To correct this | Do this |
+|---|---|
+| A wrong tens digit | take the hand off the whiteboard; after 6 seconds the digit is dropped |
+| A wrong operator | delete it with the left hand (thumb down, DEL) |
+
+**The codes**
+
+| 0x  Basic | 1x  Trigonometry | 2x  Logs, powers | 3x  Constants, other | 4x  Settings |
 |---|---|---|---|---|
 | `01` + | `10` sin | `20` log | `30` π | `40` DEG / RAD / GRA |
 | `02` − | `12` cos | `21` ln | `31` e | `41` decimal ⇔ fraction |
@@ -68,91 +97,117 @@ Left-handed? Tick **Swap hands**.
 | `08` √ | `18` cosh | `28` ∛ | `38` save to memory | |
 | `09` % | `19` tanh | `29` x! | `39` recall memory | |
 
-The tens digit names the group. There are no codes with the same digit twice (11, 22, 33), so the right hand
-never has to show one gesture twice in a row. The table is also printed in the window, under the camera picture.
+The tens digit names the group. There are no codes with the same digit twice (11, 22, 33), so the hand never has
+to show one gesture twice in a row. The same list is printed in the window.
 
-**Example,** `sin(30)+5`:
+## Timing and a worked example
 
-| Step | Hand | Gestures | Display |
-|---|---|---|---|
-| 1 | right | 1, 0 (code 10) | `sin(` |
-| 2 | left | 3, then 0 | `sin(30` |
-| 3 | right | 0, 6 (code 06) | `sin(30)` |
-| 4 | right | 0, 1 (code 01) | `sin(30)+` |
-| 5 | left | 5 | `sin(30)+5` |
-| 6 | left | thumb up (=) | `5.5` |
+The pause starts when the hand is still and its shape no longer changes. Moving the hand or changing the gesture
+starts it again.
 
-**Tips**
+![Timing of the two hands](docs/images/timing.png)
 
-- Sit 40–80 cm from the camera, in good light. Keep the left hand outside the whiteboard.
-- Change from one gesture to the next in one clear movement: a hand shape shown only in passing is ignored.
-- A ring around the hand shows the pause running. When a gesture is not recognised, the line under the camera
-  picture shows the closest guess.
-- **Pause** (under the camera picture) sets how long the left hand must be still, 1.0 s by default; the right hand
-  always needs half of it.
+In the example below, orange steps are made by the right hand (a code), green steps by the left hand.
+
+![Entering sin(30)+5](docs/images/example.png)
+
+## Settings and keyboard
+
+| Setting | Effect |
+|---|---|
+| Pause | how long the left hand must be still (1.0 s at the start, 0.4–2.0 s); the right hand always needs half of it |
+| Swap hands | for left-handed use: digits with the right hand, operator codes with the left hand |
+| Gesture input | untick to pause gesture input; the camera picture keeps running |
+
+The keyboard always works as well:
+
+| Keys | Enter |
+|---|---|
+| `0`–`9` `.` `+ - * / ( ) ^ ! %` | the same characters |
+| Enter or `=` | the result |
+| Backspace / Esc | DEL / AC |
+| `D` / `F` | angle unit / decimal ⇔ fraction |
 
 ## Calculator functions
 
-The window has no on-screen keypad: everything is entered by gesture or from the keyboard.
-
-| Entered by | Functions |
+| Group | Functions |
 |---|---|
-| left hand | digits `0`–`9`, `.`, `=`, `DEL`, `AC` |
-| right hand, by code | `+ − × ÷`, `( )`, power, `x²`, `x³`, `x⁻¹`, `√`, `∛`, `%`, `x!`, `sin cos tan` with inverses and hyperbolic forms, `log`, `ln`, `10ˣ`, `eˣ`, `π`, `e`, `Ans`, `Abs`, `nPr`, `nCr`, `×10ˣ`, memory, angle unit, decimal ⇔ fraction |
-| keyboard | digits, `+ - * / ( ) ^ ! % .`, Enter (=), Backspace (DEL), Esc (AC), `D` (DEG / RAD / GRA), `F` (decimal ⇔ fraction) |
+| Arithmetic | + − × ÷, parentheses, %, ×10ˣ |
+| Powers and roots | x², x³, xʸ (`^`), x⁻¹, √, ∛ |
+| Trigonometry | sin, cos, tan, their inverses, sinh, cosh, tanh; angles in DEG, RAD or GRA |
+| Logarithms | log, ln, 10ˣ, eˣ |
+| Counting | x!, nPr, nCr, Abs |
+| Constants, memory | π, e, Ans (the last result), one memory (save, recall) |
 
-- Implied multiplication works: `2π`, `3sin(30)`. A missing `)` at the end is allowed.
-- Results have 10 significant digits. Errors show as `Math ERROR` or `Syntax ERROR`, like a pocket calculator.
-- "Save to memory" stores the result (working out an unfinished expression first); "recall memory" puts the
-  stored value into the expression.
+| Rule | Example |
+|---|---|
+| A missing × is understood | `2π`, `3sin(30)` |
+| A missing `)` at the end is allowed | `sin(30` gives 0.5 |
+| After `=`, an operator continues from the result | `6×7=` then `+8` shows `Ans+8` |
+| After `=`, a digit starts a new calculation | `6×7=` then `3` shows `3` |
+| Results have 10 significant digits | `1÷3` gives 0.3333333333 |
+| What cannot be worked out | `Math ERROR` (such as 1÷0) or `Syntax ERROR` (such as `1+`); DEL returns to the expression |
+
+"Save to memory" stores the result (working out an unfinished expression first); "recall memory" puts the stored
+value into the expression.
 
 Not included: matrix, vector, statistics, complex-number and base-N modes, equation solving, integration.
 
 ## How it works
 
-```
-webcam frame ──► MediaPipe: both hands, 21 landmarks each
-                    │
-   left hand  ──► still for 1 s ─────► ResNet-152 on the frame ──► digit / . / = / DEL / AC ─────────┐
-                                       (the right hand is painted over)                              │
-   right hand ──► on the whiteboard, ► ResNet-152 on the frame ──► digit ─► tens + units = code ─► operator
-                  still for 0.5 s      (the left hand is painted over)                               │
-                                                                        calculator engine ◄──────────┘ ──► display
-```
+### From the camera picture to a key
 
-1. **Hand tracking.** MediaPipe finds both hands and tells the left hand from the right.
-2. **Stillness.** A hand is still while its palm and index fingertip stay inside a small circle, and its shape
-   does not change. That starts the pause.
-3. **One hand per look.** The gesture network looks at the whole camera picture and names one gesture, so each
-   hand gets its own pass with the other hand painted over in grey.
-4. **Decision.** The answers of all frames of the pause are averaged. The key is entered when the network is
-   clear enough; then the hand has to change its gesture or move away before it can enter the next one.
+![What happens to every camera frame](docs/images/pipeline.png)
 
-Measured on the development laptop (CPU): ResNet-152 36 ms per frame, ViT-B/16 67 ms, hand tracking 8 ms. The
-laptop's webcam delivers about 15 pictures a second indoors.
+| Step | What it does |
+|---|---|
+| Hand tracking | MediaPipe finds up to two hands, 21 points on each, and tells the left hand from the right. The picture is mirrored, so the right hand appears on the right. |
+| Stillness | A hand is still while its palm and index fingertip stay inside a small circle. This tolerates the slight tremor of a raised hand. |
+| One hand per look | The gesture network judges the whole picture and names one gesture. So each hand gets its own look, with the other hand painted over in grey. |
+| Gesture network | ResNet-152, a deep convolutional network pre-trained on the HaGRID gesture data set, gives a probability to each of 34 gestures. |
+| Averaging | The answers for all frames of the pause are averaged, so one bad frame does not decide. |
+| Calculator | The key is added to the expression; `=` works it out. |
 
-## Models
+### When a gesture is entered
 
-The files live in `models/` and are loaded with ONNX Runtime / MediaPipe on the CPU. Nothing is trained: the
-gesture networks are the checkpoints published by the HaGRID authors, converted to ONNX.
+![The decision for each hand](docs/images/decision.png)
+
+"Network sure" means: the calculator's gestures together receive at least 30% of the probability, and the best
+one at least half of that. Otherwise nothing is entered and the window shows the closest guess.
+
+### The models
+
+The files live in `models/` and run on the processor with ONNX Runtime / MediaPipe; no graphics card is needed.
+Nothing is trained: the gesture networks are the published HaGRID models, converted to the ONNX format.
 
 | File | What it is | Where it comes from |
 |---|---|---|
 | `hand_landmarker.task` | MediaPipe hand tracker (21 landmarks per hand): finds both hands and tells left from right | Google, pre-trained; in this repository |
 | `gesture_resnet152.onnx` | **ResNet-152** full-frame gesture classifier, 34 classes, pre-trained on HaGRIDv2 (1 M images); published F1 98.6. Used by default | HaGRID checkpoint, converted with `tools/convert_hagrid.py --arch resnet152` |
-| `gesture_vit_b16.onnx` | **ViT-B/16**, same classes and data; published F1 91.7. Optional alternative | `tools/convert_hagrid.py --arch vit_b16` |
+| `gesture_vit_b16.onnx` | **ViT-B/16**, a vision transformer trained on the same data; published F1 91.7. Optional alternative | `tools/convert_hagrid.py --arch vit_b16` |
 
-The two gesture networks are **not in this repository** (233 MB and 344 MB, above GitHub's file size limit).
-The release zip contains ResNet-152; from the source code, create it as shown below.
+Measured on the development laptop (CPU): ResNet-152 36 ms per frame, ViT-B/16 67 ms, hand tracking 8 ms. The
+laptop's webcam delivers about 15 pictures a second indoors.
 
-## Run from the source code
+## Files and source code
+
+![The files of the program](docs/images/files.png)
+
+To use the calculator on another computer, copy `GestureCalculator.exe`, `_internal` and `models` together. The
+program writes no files: nothing is recorded or stored.
+
+### Run from the source code
+
+The two gesture networks are **not in this repository** (233 MB and 344 MB, above GitHub's file size limit); the
+release zip contains ResNet-152. From the source code, step 2 creates it once: the script downloads the published
+HaGRID model and converts it. This step needs the internet; running the calculator does not.
 
 ```powershell
 # 1. environment
 py -3.12 -m venv .venv
 .venv\Scripts\python -m pip install -r requirements.txt
 
-# 2. the gesture network, once: downloads the published HaGRID checkpoint and converts it
+# 2. the gesture network, once
 .venv\Scripts\python -m pip install -r tools\requirements-convert.txt
 .venv\Scripts\python tools\convert_hagrid.py --arch resnet152     # -> models\gesture_resnet152.onnx
 
@@ -166,23 +221,40 @@ py -3.12 -m venv .venv
 | `--no-camera` | keyboard only |
 | `--gesture-model vit_b16` | use ViT-B/16 instead of ResNet-152 (convert it first with `--arch vit_b16`) |
 
-Build the stand-alone program:
+### Build the exe
 
 ```powershell
 .venv\Scripts\python -m pip install pyinstaller
-pwsh build_exe.ps1                          # -> GestureCalculator.exe and _internal\ in the project root
+pwsh build_exe.ps1                          # -> GestureCalculator.exe and _internal\ in the project folder
 ```
+
+### Folders
 
 | Folder | Content |
 |---|---|
 | `app/` | `engine.py` calculator, `operators.py` operator codes, `gestures.py` gesture → key, `controller.py` input logic, `vision.py` camera thread, `models.py` ONNX model, `ui.py` window |
 | `tools/` | `convert_hagrid.py` (checkpoint → ONNX) |
 | `tests/` | calculator engine, operator codes and input-logic tests (`pytest`) |
-| `docs/` | sources of `manual.docx`: text, diagrams, and `update_manual.ps1` to rebuild it |
+| `docs/` | the pictures of this guide and the sources of `manual.docx` (`update_manual.ps1` rebuilds it) |
+
+## Troubleshooting
+
+| Problem | What to do |
+|---|---|
+| "No webcam found" | connect a camera, close other programs that use it, start again; or start with `--camera 1` |
+| "gesture model missing" | put `gesture_resnet152.onnx` and `gesture_resnet152.json` into `models` |
+| No outline on a hand | bring the whole hand into the picture; improve the light |
+| The ring never fills | hold the hand still; rest the elbow on the table |
+| "Gesture not recognised" | face the palm to the camera, spread the fingers clearly, keep the other hand away from it |
+| A digit is entered twice | keep the hand still after an entry until you change the gesture |
+| The right hand enters nothing | its palm must be on the whiteboard |
+| The hands are taken for each other | keep them apart; if it is always wrong, tick Swap hands |
+| "There is no operator with the code …" | check the code list; enter the tens digit first |
+| Entries are too slow or too hasty | change Pause |
 
 ## Limitations
 
-- The HaGRID gestures were not designed as digits: 6–9 use the closest HaGRID classes (gesture table above).
+- The HaGRID gestures were not designed as digits: 6–9 use the closest HaGRID classes (see the gesture picture).
 - One person in the picture. MediaPipe tells the left hand from the right; when it gets that wrong, an entry is
   missed or goes to the other hand.
 - Gesture recognition by the right hand on the whiteboard has only been checked with scripted input so far.
