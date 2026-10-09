@@ -1,5 +1,7 @@
 # Gesture Calculator
 
+> **Note:** This repository is a rebuilt version of the "Gesture Recognition Calculator" project listed on my resume, re-implemented with current tools and libraries.
+
 A scientific calculator you operate with hand gestures in front of a webcam. It is a Windows program that runs
 **entirely offline**: the neural network is stored on the computer, no picture leaves it, and the program writes
 no files.
